@@ -1,9 +1,3 @@
-let restaurants,
-  neighborhoods,
-  cuisines
-var newMap
-var markers = []
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -157,6 +151,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  li.classList.add("restaurants-list-item-part");
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
@@ -180,7 +175,7 @@ createRestaurantHTML = (restaurant) => {
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 
-  return li
+  return li;
 }
 
 /**
@@ -209,3 +204,37 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 } */
 
+/**
+ * Handle media queries.
+ */
+mediaQueryListener = (mediaQueryList) => {
+  if(mediaQueryList.matches){
+    for (const listEle of restaurantListEle.getElementsByTagName("li")) {
+      listEle.classList.replace("restaurants-list-item-part", "restaurants-list-item-full");
+    }
+    restaurantListEle.classList.replace("restaurants-list-part", "restaurants-list-full");
+  }
+  else{
+    for (const listEle of restaurantListEle.getElementsByTagName("li")) {
+      listEle.classList.replace("restaurants-list-item-full", "restaurants-list-item-part");
+    }
+
+    restaurantListEle.classList.replace("restaurants-list-full", "restaurants-list-part");
+  }
+}
+
+let restaurants,
+  neighborhoods,
+  cuisines
+var newMap
+var markers = []
+const restaurantListEle = document.getElementById("restaurants-list");
+
+// Setup for media queries.
+let mediaQueryList = [
+  window.matchMedia("(max-width: 550px)")
+];
+for (const query of mediaQueryList) {
+  mediaQueryListener(query);
+  query.addListener(mediaQueryListener);
+};
