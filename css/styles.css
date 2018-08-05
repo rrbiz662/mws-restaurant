@@ -222,8 +222,6 @@ nav h1 a {
   text-transform: uppercase;
 }
 
-
-
 /* ====================== Restaurant Details ====================== */
 .inside header {
   position: fixed;
@@ -262,10 +260,12 @@ nav h1 a {
 
 .inside .footer-part{
   width: 40%;
+  padding: 25px !important;
 }
 
 .inside .footer-full{
   width: 100%;
+  padding: 25px 0 !important;
 }
 
 #restaurant-name {
@@ -319,7 +319,7 @@ nav h1 a {
     border: 2px solid #f3f3f3;
   display: block;
   list-style-type: none;
-  margin: 0 0 30px;
+  margin: 0 auto 30px;
   overflow: hidden;
   padding: 0 20px 20px;
   position: relative;
@@ -352,11 +352,11 @@ nav h1 a {
 }
 
 .restaurant-info-full{
-  padding: 65px 5px 30px;
+  padding: 60px 0 30px;
   width: 100%;
 }
 
 .restaurant-info-part{
-  padding: 65px 20px 30px;
+  padding: 60px 20px 30px;
   width: 40%;
 }
