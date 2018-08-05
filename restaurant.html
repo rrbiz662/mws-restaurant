@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
@@ -24,34 +25,38 @@
   <!-- Beginning main -->
   <main id="maincontent">
     <!-- Beginning map -->
-    <section id="map-container">
+    <section id="map-container" class="map-container-visible">
       <div id="map"></div>
     </section>
     <!-- End map -->
-    <!-- Beginning restaurant -->
-    <section id="restaurant-container">
-      <!-- Beginning breadcrumb -->
-      <ul id="breadcrumb" >
-        <li><a href="/">Home</a></li>
-      </ul>
-      <!-- End breadcrumb -->
-      <h1 id="restaurant-name"></h1>
-      <img id="restaurant-img">
-      <p id="restaurant-cuisine"></p>
-      <p id="restaurant-address"></p>
-      <table id="restaurant-hours"></table>
-    </section>
-    <!-- end restaurant -->
-    <!-- Beginning reviews -->
-    <section id="reviews-container">
-      <ul id="reviews-list"></ul>
-    </section>
-    <!-- End reviews -->
+    <!-- Beginning sidebar-->
+    <div id="sidebar">
+      <!-- Beginning restaurant -->
+      <section id="restaurant-container" class="restaurant-info restaurant-info-part">
+        <!-- Beginning breadcrumb -->
+        <ul id="breadcrumb" >
+          <li><a href="/">Home</a></li>
+        </ul>
+        <!-- End breadcrumb -->
+        <h1 id="restaurant-name"></h1>
+        <img id="restaurant-img">
+        <p id="restaurant-cuisine"></p>
+        <p id="restaurant-address"></p>
+        <table id="restaurant-hours"></table>
+      </section>
+      <!-- end restaurant -->
+      <!-- Beginning reviews -->
+      <section id="reviews-container" class="restaurant-info restaurant-info-part">
+        <ul id="reviews-list"></ul>
+      </section>
+      <!-- End reviews -->
+    </div>
+    <!-- End sidebar-->
   </main>
   <!-- End main -->
 
   <!-- Beginning footer -->
-  <footer id="footer">
+  <footer id="footer" class="footer-part">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->

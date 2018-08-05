@@ -1,6 +1,3 @@
-let restaurant;
-var newMap;
-
 /**
  * Initialize map as soon as the page is loaded.
  */
@@ -192,3 +189,38 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * Listens for when media query hits width limits.
+ * Toggles sidebar and map container accordingly.
+ */
+function mediaQueryListener(mediaQueryList) {
+
+  if(mediaQueryList.matches){
+     for (const element of containers) {
+      element.classList.replace("restaurant-info-part", "restaurant-info-full");
+    }
+
+    mapContainer.classList.replace("map-container-visible", "map-container-hide");
+    footer.classList.replace("footer-part", "footer-full");
+  }
+  else{
+    for (const element of containers) {
+        element.classList.replace("restaurant-info-full", "restaurant-info-part");
+    }
+
+    mapContainer.classList.replace("map-container-hide", "map-container-visible");
+    footer.classList.replace("footer-full", "footer-part");
+  }
+}
+
+// Media query setup.
+const containers = document.getElementsByClassName("restaurant-info");
+const mapContainer = document.getElementById("map-container");
+const footer = document.getElementById("footer");
+let mediaQueryList = window.matchMedia("(max-width: 550px)");
+mediaQueryListener(mediaQueryList);
+mediaQueryList.addListener(mediaQueryListener);
+
+let restaurant;
+var newMap;
