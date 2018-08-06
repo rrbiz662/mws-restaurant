@@ -114,6 +114,7 @@ updateRestaurants = () => {
     } else {
       resetRestaurants(restaurants);
       fillRestaurantsHTML();
+      mediaQueryListener(window.matchMedia("(max-width: 550px)"));
     }
   })
 }
