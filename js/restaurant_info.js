@@ -85,9 +85,12 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
+  image.alt = restaurant.name + " Restaurant Image";
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
+  cuisine.setAttribute("role", "text");
+  cuisine.setAttribute("aria-label", restaurant.cuisine_type + "Cuisine");
   cuisine.innerHTML = restaurant.cuisine_type;
 
   // fill operating hours
@@ -105,12 +108,15 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
   const hours = document.getElementById('restaurant-hours');
   for (let key in operatingHours) {
     const row = document.createElement('tr');
+    row.setAttribute("role", "row");
 
     const day = document.createElement('td');
+    day.setAttribute("role", "cell");
     day.innerHTML = key;
     row.appendChild(day);
 
     const time = document.createElement('td');
+    time.setAttribute("role", "cell");
     time.innerHTML = operatingHours[key];
     row.appendChild(time);
 
@@ -125,6 +131,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
+  title.tabIndex = 0;
   container.appendChild(title);
 
   if (!reviews) {
@@ -145,6 +152,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+  li.tabIndex = 0;
   const name = document.createElement('p');
   name.innerHTML = review.name;
   li.appendChild(name);
@@ -197,27 +205,32 @@ getParameterByName = (name, url) => {
 function mediaQueryListener(mediaQueryList) {
 
   if(mediaQueryList.matches){
-     for (const element of containers) {
+     for (const element of containerEles) {
       element.classList.replace("restaurant-info-part", "restaurant-info-full");
     }
 
-    mapContainer.classList.replace("map-container-visible", "map-container-hide");
-    footer.classList.replace("footer-part", "footer-full");
+    mapContainerEle.classList.replace("map-container-visible", "map-container-hide");
+    footerEle.classList.replace("footer-part", "footer-full");
+    mapEle.setAttribute("aria-hidden", "true");
+    mapEle.hidden = true;
   }
   else{
-    for (const element of containers) {
+    for (const element of containerEles) {
         element.classList.replace("restaurant-info-full", "restaurant-info-part");
     }
 
-    mapContainer.classList.replace("map-container-hide", "map-container-visible");
-    footer.classList.replace("footer-full", "footer-part");
+    mapContainerEle.classList.replace("map-container-hide", "map-container-visible");
+    footerEle.classList.replace("footer-full", "footer-part");
+    mapEle.setAttribute("aria-hidden", "false");
+    mapEle.hidden = false;
   }
 }
 
 // Media query setup.
-const containers = document.getElementsByClassName("restaurant-info");
-const mapContainer = document.getElementById("map-container");
-const footer = document.getElementById("footer");
+const containerEles = document.getElementsByClassName("restaurant-info");
+const mapContainerEle = document.getElementById("map-container");
+const mapEle = document.getElementById("map");
+const footerEle = document.getElementById("footer");
 let mediaQueryList = window.matchMedia("(max-width: 550px)");
 mediaQueryListener(mediaQueryList);
 mediaQueryList.addListener(mediaQueryListener);

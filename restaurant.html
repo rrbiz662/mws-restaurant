@@ -16,7 +16,7 @@
   <header>
     <!-- Beginning nav -->
     <nav>
-      <h1><a href="/">Restaurant Reviews</a></h1>
+      <h1><a role="link" href="/" tabindex="0">Restaurant Reviews</a></h1>
     </nav>
     <!-- End nav -->
   </header>
@@ -25,7 +25,7 @@
   <!-- Beginning main -->
   <main id="maincontent">
     <!-- Beginning map -->
-    <section id="map-container" class="map-container-visible">
+    <section id="map-container" class="map-container-visible" role="contentinfo" aria-label="Map">
       <div id="map"></div>
     </section>
     <!-- End map -->
@@ -35,14 +35,18 @@
       <section id="restaurant-container" class="restaurant-info restaurant-info-part">
         <!-- Beginning breadcrumb -->
         <ul id="breadcrumb" >
-          <li><a href="/">Home</a></li>
+          <li><a role="link" href="/">Home</a></li>
         </ul>
         <!-- End breadcrumb -->
-        <h1 id="restaurant-name"></h1>
-        <img id="restaurant-img">
-        <p id="restaurant-cuisine"></p>
-        <p id="restaurant-address"></p>
-        <table id="restaurant-hours"></table>
+        <section role="contentinfo" tabindex="0">
+          <h1 id="restaurant-name"></h1>
+          <img id="restaurant-img">
+          <p id="restaurant-cuisine"></p>
+          <p id="restaurant-address"></p>
+          <table id="restaurant-hours" role="table">
+              <caption hidden aria-hidden="false">Restaurant Hours</caption>
+          </table>
+        </section>
       </section>
       <!-- end restaurant -->
       <!-- Beginning reviews -->
@@ -56,7 +60,7 @@
   <!-- End main -->
 
   <!-- Beginning footer -->
-  <footer id="footer" class="footer-part">
+  <footer id="footer" class="footer-part" role="contentinfo" tabindex="0">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
