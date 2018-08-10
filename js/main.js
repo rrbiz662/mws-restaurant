@@ -227,6 +227,22 @@ mediaQueryListener = (mediaQueryList) => {
   }
 }
 
+/**
+ * Initialize service worker.
+ */
+initServiceWorker = () => {
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register("/index.js").then(function(){
+      console.log("Registration worked.");
+    }).catch(function(){
+      console.log("Registration failed.");
+    });
+  }
+  else{
+    console.log("Service workers not supported.")
+  }
+}
+
 let restaurants,
   neighborhoods,
   cuisines
@@ -242,3 +258,8 @@ for (const query of mediaQueryList) {
   mediaQueryListener(query);
   query.addListener(mediaQueryListener);
 };
+
+initServiceWorker();
+
+
+
