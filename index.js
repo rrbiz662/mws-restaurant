@@ -1,6 +1,3 @@
-let cacheName = 'restaurants_cache_v';
-let cacheVersion = 1;
-
 /**
  * Add resources to the cache on service worker install.
  */
@@ -73,3 +70,6 @@ self.addEventListener('install', function(event){
       })
     );
   });
+
+let cacheName = 'restaurants_cache_v';
+let cacheVersion = 1;
