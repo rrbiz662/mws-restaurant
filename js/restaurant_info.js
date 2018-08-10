@@ -202,7 +202,7 @@ getParameterByName = (name, url) => {
  * Listens for when media query hits width limits.
  * Toggles sidebar and map container accordingly.
  */
-function mediaQueryListener(mediaQueryList) {
+mediaQueryListener = (mediaQueryList) => {
 
   if(mediaQueryList.matches){
      for (const element of containerEles) {
