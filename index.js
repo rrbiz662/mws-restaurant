@@ -4,7 +4,7 @@
 self.addEventListener('install', function(event){
     // Wait until promise is returned.
     event.waitUntil(
-      caches.open(cacheName + cacheVersion).then(function(cache){
+      caches.open(CACHE_NAME + cacheVersion).then(function(cache){
         return cache.addAll(
           [
             '/',
@@ -71,5 +71,5 @@ self.addEventListener('install', function(event){
     );
   });
 
-let cacheName = 'restaurants_cache_v';
+const CACHE_NAME = 'restaurants_cache_v';
 let cacheVersion = 1;
