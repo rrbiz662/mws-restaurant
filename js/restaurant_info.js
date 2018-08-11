@@ -199,41 +199,57 @@ getParameterByName = (name, url) => {
 }
 
 /**
- * Listens for when media query hits width limits.
- * Toggles sidebar and map container accordingly.
+ * Handle media queries.
  */
 mediaQueryListener = (mediaQueryList) => {
+  switch(mediaQueryList.media){
+    case '(max-width: 550px)':
+      if(mediaQueryList.matches){
+        for (const element of containerEles) {
+          element.classList.replace('restaurant-info-part', 'restaurant-info-full');
+        }
 
-  if(mediaQueryList.matches){
-     for (const element of containerEles) {
-      element.classList.replace("restaurant-info-part", "restaurant-info-full");
-    }
+        mapContainerEle.classList.replace('map-container-visible', 'map-container-hide');
+        footerEle.classList.replace('footer-part', 'footer-full');
+        mapEle.setAttribute('aria-hidden', 'true');
+        mapEle.hidden = true;
+      }
+      else{
+        for (const element of containerEles) {
+          element.classList.replace('restaurant-info-full', 'restaurant-info-part');
+        }
 
-    mapContainerEle.classList.replace("map-container-visible", "map-container-hide");
-    footerEle.classList.replace("footer-part", "footer-full");
-    mapEle.setAttribute("aria-hidden", "true");
-    mapEle.hidden = true;
-  }
-  else{
-    for (const element of containerEles) {
-        element.classList.replace("restaurant-info-full", "restaurant-info-part");
-    }
-
-    mapContainerEle.classList.replace("map-container-hide", "map-container-visible");
-    footerEle.classList.replace("footer-full", "footer-part");
-    mapEle.setAttribute("aria-hidden", "false");
-    mapEle.hidden = false;
+        mapContainerEle.classList.replace('map-container-hide', 'map-container-visible');
+        footerEle.classList.replace('footer-full', 'footer-part');
+        mapEle.setAttribute('aria-hidden', 'false');
+        mapEle.hidden = false;
+      }
+      break;
+    case '(max-width: 220px)':
+      if(mediaQueryList.matches){
+        headerLinkEle.classList.replace('large-header', 'small-header');
+      }
+      else{
+        headerLinkEle.classList.replace('small-header', 'large-header');
+      }
+      break;
   }
 }
 
 // Media query setup.
-const containerEles = document.getElementsByClassName("restaurant-info");
-const mapContainerEle = document.getElementById("map-container");
-const mapEle = document.getElementById("map");
-const footerEle = document.getElementById("footer");
-let mediaQueryList = window.matchMedia("(max-width: 550px)");
-mediaQueryListener(mediaQueryList);
-mediaQueryList.addListener(mediaQueryListener);
+const containerEles = document.getElementsByClassName('restaurant-info');
+const mapContainerEle = document.getElementById('map-container');
+const mapEle = document.getElementById('map');
+const footerEle = document.getElementById('footer');
+const headerLinkEle = document.getElementsByClassName('large-header')[0];
+let mediaQueryList = [
+  window.matchMedia('(max-width: 550px)'),
+  window.matchMedia('(max-width: 220px)')
+];
+for (const query of mediaQueryList) {
+  mediaQueryListener(query);
+  query.addListener(mediaQueryListener);
+};
 
 let restaurant;
 var newMap;

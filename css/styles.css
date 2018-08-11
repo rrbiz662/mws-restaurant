@@ -26,7 +26,7 @@ li {
 
 a {
 	color: orange;
-	text-decoration: none;
+  text-decoration: none;
 }
 
 a:hover, a:focus {
@@ -94,6 +94,16 @@ nav h1 {
 
 nav h1 a {
   color: #fff;
+}
+
+.small-header{
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.large-header{
   font-size: 14pt;
   font-weight: 200;
   letter-spacing: 10px;
@@ -164,7 +174,14 @@ nav h1 a {
   letter-spacing: 0;
   margin: 10px;
   padding: 0 10px;
+}
+
+.filter-options-part{
   width: 200px;
+}
+
+.filter-options-full{
+  width: 90%;
 }
 
 /* ====================== Restaurant Listing ====================== */

@@ -114,7 +114,7 @@ updateRestaurants = () => {
     } else {
       resetRestaurants(restaurants);
       fillRestaurantsHTML();
-      mediaQueryListener(window.matchMedia("(max-width: 550px)"));
+      mediaQueryListener(window.matchMedia('(max-width: 550px)'));
     }
   })
 }
@@ -152,12 +152,12 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-  li.classList.add("restaurants-list-item-part");
+  li.classList.add('restaurants-list-item-part');
   li.tabIndex = 0;
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.alt = restaurant.name + " Restaurant Image";
+  image.alt = restaurant.name + ' Restaurant Image';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
@@ -176,7 +176,7 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  more.setAttribute("role", "button");
+  more.setAttribute('role', 'button');
   li.append(more)
 
   return li;
@@ -189,7 +189,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
-    marker.on("click", onClick);
+    marker.on('click', onClick);
     function onClick() {
       window.location.href = marker.options.url;
     }
@@ -212,18 +212,42 @@ addMarkersToMap = (restaurants = self.restaurants) => {
  * Handle media queries.
  */
 mediaQueryListener = (mediaQueryList) => {
-  if(mediaQueryList.matches){
-    for (const listEle of restaurantListEle.getElementsByTagName("li")) {
-      listEle.classList.replace("restaurants-list-item-part", "restaurants-list-item-full");
-    }
-    restaurantListEle.classList.replace("restaurants-list-part", "restaurants-list-full");
-  }
-  else{
-    for (const listEle of restaurantListEle.getElementsByTagName("li")) {
-      listEle.classList.replace("restaurants-list-item-full", "restaurants-list-item-part");
-    }
+  switch(mediaQueryList.media){
+    case '(max-width: 550px)':
+      if(mediaQueryList.matches){
+        for (const listEle of restaurantListEle.getElementsByTagName('li')) {
+          listEle.classList.replace('restaurants-list-item-part', 'restaurants-list-item-full');
+        }
+        restaurantListEle.classList.replace('restaurants-list-part', 'restaurants-list-full');
+      }
+      else{
+        for (const listEle of restaurantListEle.getElementsByTagName('li')) {
+          listEle.classList.replace('restaurants-list-item-full', 'restaurants-list-item-part');
+        }
 
-    restaurantListEle.classList.replace("restaurants-list-full", "restaurants-list-part");
+        restaurantListEle.classList.replace('restaurants-list-full', 'restaurants-list-part');
+      }
+      break;
+    case '(max-width: 320px)':
+      if(mediaQueryList.matches){
+        for (const selectEle of selectEles) {
+          selectEle.classList.replace('filter-options-part', 'filter-options-full');
+        }
+      }
+      else{
+        for (const selectEle of selectEles) {
+          selectEle.classList.replace('filter-options-full', 'filter-options-part');
+        }
+      }
+      break;
+      case '(max-width: 220px)':
+      if(mediaQueryList.matches){
+        headerLinkEle.classList.replace('large-header', 'small-header');
+      }
+      else{
+        headerLinkEle.classList.replace('small-header', 'large-header');
+      }
+      break;
   }
 }
 
@@ -232,14 +256,14 @@ mediaQueryListener = (mediaQueryList) => {
  */
 initServiceWorker = () => {
   if('serviceWorker' in navigator){
-    navigator.serviceWorker.register("/index.js").then(function(){
-      console.log("Registration worked.");
+    navigator.serviceWorker.register('/index.js').then(function(){
+      console.log('Registration worked.');
     }).catch(function(){
-      console.log("Registration failed.");
+      console.log('Registration failed.');
     });
   }
   else{
-    console.log("Service workers not supported.")
+    console.log('Service workers not supported.')
   }
 }
 
@@ -248,11 +272,16 @@ let restaurants,
   cuisines
 var newMap
 var markers = []
-const restaurantListEle = document.getElementById("restaurants-list");
 
 // Setup for media queries.
+const restaurantListEle = document.getElementById('restaurants-list');
+const filterOptionsEle = document.getElementsByClassName('filter-options')[0];
+const selectEles = filterOptionsEle.getElementsByTagName('select');
+const headerLinkEle = document.getElementsByClassName('large-header')[0];
 let mediaQueryList = [
-  window.matchMedia("(max-width: 550px)")
+  window.matchMedia('(max-width: 550px)'),
+  window.matchMedia('(max-width: 320px)'),
+  window.matchMedia('(max-width: 220px)')
 ];
 for (const query of mediaQueryList) {
   mediaQueryListener(query);
